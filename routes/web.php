@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\ProfileController; // ProfileControllerをインポート
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +20,6 @@ Route::get('/', function () {
 });
 
 // ニュース関連のルート
-use App\Http\Controllers\Admin\NewsController;
-
 Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('news/create', 'add')->name('news.add');
     Route::post('news/create', 'create')->name('news.create');
@@ -29,3 +29,9 @@ Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middl
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// ProfileControllerのルートを追加
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('profile/create', [ProfileController::class, 'add'])->name('profile.add');
+    Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+});
