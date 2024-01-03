@@ -20,11 +20,9 @@ Route::get('/', function () {
 // ニュース関連のルート
 use App\Http\Controllers\Admin\NewsController;
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    // ニュース作成ページ
-    Route::get('news/create', 'Admin\NewsController@add');
-    
-    // 他のニュース関連のルートもここに追加できます
+Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('news/create', 'add')->name('news.add');
+    Route::post('news/create', 'create')->name('news.create');
 });
 
 // 以下は認証関連のルートです
