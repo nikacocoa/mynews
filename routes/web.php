@@ -32,6 +32,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // ProfileControllerのルートを追加
 Route::controller(ProfileController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::get('profile/create', [ProfileController::class, 'add'])->name('profile.add');
-    Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('profile/create', 'add')->name('profile.add');
+    Route::get('profile/edit', 'edit')->name('profile.edit');
 });
