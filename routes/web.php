@@ -25,13 +25,13 @@ Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middl
     Route::post('news/create', 'create')->name('news.create');
 });
 
-// 以下は認証関連のルートです
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 // ProfileControllerのルートを追加
 Route::controller(ProfileController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('profile/create', 'add')->name('profile.add');
     Route::get('profile/edit', 'edit')->name('profile.edit');
 });
+
+// 以下は認証関連のルートです
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
